@@ -1,0 +1,6 @@
+
+- name: co2mon
+  hosts: all
+
+  roles:
+      - co2mon

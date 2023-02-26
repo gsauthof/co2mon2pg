@@ -1,0 +1,48 @@
+
+
+- name: create co2mon2pg service
+  copy:
+      src: co2mon2pg.service
+      dest: /etc/systemd/system/co2mon2pg.service
+      owner: root
+      group: root
+      mode: '0644'
+  register: copy_co2mon2pg_service
+  notify: restart co2mon2pg
+  tags: [co2mon2pg]
+
+- name: reload systemd
+  systemd:
+      daemon_reload: true
+  when: copy_co2mon2pg_service.changed
+  tags: [co2mon2pg, systemd]
+
+- name: enable co2mon2pg service
+  systemd:
+      name: co2mon2pg
+      enabled: yes
+  tags: [co2mon2pg]
+
+
+- name: copy co2mon2pg
+  copy:
+      src: co2mon2pg.py
+      dest: /usr/local/bin/co2mon2pg
+      owner: root
+      group: root
+      mode: '0755'
+  notify: restart co2mon2pg
+  tags: [co2mon2pg]
+
+
+
+- name: copy udev device rule
+  copy:
+      src: 99-co2mon.rules
+      dest: /etc/udev/rules.d/99-co2mon.rules
+      owner: root
+      group: root
+      mode: '0644'
+  tags: [co2mon2pg, co2udev]
+
+

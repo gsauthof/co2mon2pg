@@ -1,0 +1,6 @@
+
+- name: restart co2mon2pg
+  systemd:
+      name: co2mon2pg
+      state: restarted
+
