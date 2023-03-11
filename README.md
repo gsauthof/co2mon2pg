@@ -1,5 +1,5 @@
 This repository contains co2mon2pg, a Python program that streams
-CO2 (and temperature) readings of certain devices to a PostgreSQL
+CO2 concentration (and temperature) readings of certain devices to a PostgreSQL
 database or stdout (CSV).
 
 2023, Georg Sauthoff
@@ -81,7 +81,7 @@ NB: There are older devices with release number `0x0100` and serial number
 for details on how to decode such payload.
 
 I tested it with the 'TFA AIRCO2NTROL MINI CO2 Monitor' (EAN 4009816027351,
-Kat.-Nr. 31.5006.02, ID-NR. 31.010 180) which I bought via and from Amazon.de.
+[Kat.-Nr. 31.5006.02][14], ID-NR. 31.010 180) which I bought via and from Amazon.de.
 
 The 'TFA AIRCO2NTROL MINI CO2 Monitor' device seems to be a rebranded version of
 [ZyAura's ZGm053U][1].
@@ -91,7 +91,7 @@ The 'TFA AIRCO2NTROL MINI CO2 Monitor' device seems to be a rebranded version of
 - [Reverse-Engineering a low-cost USB CO₂ monitor][3] (hackaday.io, 2015), entertaining reverse engineering journey of the release 1 device, including Wiresharking the USB traffic and transcribing the descrambling code with IDA
 - [CO2MeterHacking][4] (revspace.nl, 2014-2018), reverse engineering documentation
 of a similar device that exposes the payload over a RJ45 serial port (without obfuscation)
-- [dmage/co2mon][5] - C program that reads from relase 1 and 2 devices, uses hidapi library, packaged by Fedora
+- [dmage/co2mon][5] - C program that reads from release 1 and 2 devices, uses hidapi library, packaged by Fedora
 - [JsBergbau/TFACO2AirCO2ntrol_CO2Meter][6] - Python 3 script based on the hackaday findings, supports release 1 and 2 devices. A release 2 device is assumed when the checksum is valid, before applying descrambling. It directly accesses a hidraw device without using the hidapi library.
 - [vshmoylov/libholtekco2][7] - C program that supports only release 1 devices, also uses hidapi library, looks like it also runs under Windows, but comes without any makefile
 - [heinemml/CO2Meter][8] - Python 2/3 script, supports release 1 and 2 devices, detects release 2 by checking the position of the `0xd` sentinel, also uses a hidraw device, instead of using the hidapi Python package
@@ -101,7 +101,7 @@ of a similar device that exposes the payload over a RJ45 serial port (without ob
 Of the co2mon interfacing Python programs, co2mon2pg is the only
 one that uses the hidapi library.
 In contrast to many other software, co2mon2pg doesn't support
-release 1 devices (although added support is straight forward).
+release 1 devices (although adding support is straight forward).
 More importantly, co2mon2pg's main distinguishing feature is that
 it supports writing the sensor data to a PostgreSQL database.
 
@@ -126,5 +126,5 @@ it supports writing the sensor data to a PostgreSQL database.
 [11]: http://co2meters.com/Documentation/AppNotes/AN146-RAD-0401-serial-communication.pdf
 [12]: https://revspace.nl/images/2/2e/ZyAura_CO2_Monitor_Carbon_Dioxide_ZG01_Module_english_manual-1.pdf
 [13]: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/execd/README.md
-
+[14]: https://www.tfa-dostmann.de/produkt/co2-monitor-airco2ntrol-3000-31-5000/
 
